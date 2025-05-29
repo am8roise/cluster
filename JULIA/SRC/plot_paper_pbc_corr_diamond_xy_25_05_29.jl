@@ -145,13 +145,13 @@ for folder in folders
 		sites_x = range(1, r)
 		sites_y = range(1, r)
 		
-		p, = ax.plot(sites_x, corrX, marker="3", color=colors[1], lw=0, markersize=7, markeredgewidth=1.5, label=latexstring(L"$C^{x}$"), zorder=101)
+		p, = ax.plot(sites_x, corrX, marker="3", color=colors[1], lw=0, markersize=7, markeredgewidth=1.5, label=latexstring(L"$(-1)^s\,C^{x}$"), zorder=101)
 		p.set_marker(matplotlib.markers.MarkerStyle(p.get_marker(), capstyle="round"))
 
 		_sites_x = sites_x[start_x:end+1-end_x]
 		_corrX = corrX[_sites_x]
 		
-		p, = ax.plot(sites_y, corrY, marker="4", color=colors[4], lw=0, markersize=7, markeredgewidth=1.5, label=latexstring(L"$C^{y}$"), zorder=101)
+		p, = ax.plot(sites_y, corrY, marker="4", color=colors[4], lw=0, markersize=7, markeredgewidth=1.5, label=latexstring(L"$(-1)^s\,C^{y}$"), zorder=101)
 		p.set_marker(matplotlib.markers.MarkerStyle(p.get_marker(), capstyle="round"))
 
 		_sites_y = sites_y[start_y:end+1-end_y]
@@ -169,14 +169,14 @@ for folder in folders
 
 		println(poptx, perrx)
 
-		ax.plot(_sites_x, numpy.exp(py"f"(collect(numpy.log(_sites_x)), poptx...)), ls="-", lw=2, color=colors[3], zorder=103, label=latexstring(L"$C^{x}\sim s^{-(%$(numpy.abs(round(poptx[1]; digits=2)))\pm %$(round(perrx[1]; digits=2)))}$"))
+		ax.plot(_sites_x, numpy.exp(py"f"(collect(numpy.log(_sites_x)), poptx...)), ls="-", lw=2, color=colors[3], zorder=103, label=latexstring(L"$(-1)^s\,C^{x}\sim s^{-(%$(numpy.abs(round(poptx[1]; digits=2)))\pm %$(round(perrx[1]; digits=2)))}$"))
 
 		popty, pcov = scipy.optimize.curve_fit(py"f", collect(numpy.log(_sites_y)), numpy.log(numpy.abs(_corrY)))
 		perry = numpy.sqrt(numpy.diag(pcov))
 
 		println(popty, perry)
 
-		ax.plot(_sites_y, numpy.exp(py"f"(collect(numpy.log(_sites_y)), popty...)), ls="-", lw=2, color=colors[6], zorder=103, label=latexstring(L"$C^{y}\sim s^{-(%$(numpy.abs(round(popty[1]; digits=2)))\pm %$(round(perry[1]; digits=2)))}$"))
+		ax.plot(_sites_y, numpy.exp(py"f"(collect(numpy.log(_sites_y)), popty...)), ls="-", lw=2, color=colors[6], zorder=103, label=latexstring(L"$(-1)^s\,C^{y}\sim s^{-(%$(numpy.abs(round(popty[1]; digits=2)))\pm %$(round(perry[1]; digits=2)))}$"))
 
 		plt.xlabel(L"$s$")
 
@@ -376,7 +376,7 @@ for folder in folders
 
 		if savePlot
 			py"createFolderIfMissing"(graphFolder * folder)
-			fig.savefig(graphFolder * folder * "r=$(r)_" * chop(dataFilenames[i], tail=5) * "_remastered.pdf")
+			fig.savefig(graphFolder * folder * "r=$(r)_" * chop(dataFilenames[i], tail=5) * "_25_05_29.pdf")
 			fig.clf()
 		end
 
